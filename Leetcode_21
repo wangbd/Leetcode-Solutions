@@ -1,0 +1,54 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    	  //create a head and walker element. use head to be returned at the end of the method
+		  //walker is to be used to splice l1 and l2 ListNode in a while loop
+		  ListNode head, walker;
+		  //if l1 is empty or if both l1 and l2 are empty, we can return l2
+		  if(l1 == null){
+			  return l2;
+		  }else if(l2 == null){
+			//if l2 is empty or if both l1 and l2 are empty, we can return l1
+			  return l1;
+		  }else{
+			//if both l1 and l2 are non-empty ListNodes
+			  //initialize head and walker to be the smallest integer
+			  head = new ListNode(0);
+			  walker = new ListNode(0);
+			  //preprocess head to be the smaller element of l1 and l2
+			  if(l1.val <= l2.val){
+				  head = l1;
+				  l1 = l1.next;
+			  }else{
+				  head = l2;
+				  l2 = l2.next;
+			  }
+			  //point walker to head
+			  walker = head;
+			  
+			  while(l1 != null && l2 != null){
+				  if(l1.val <= l2.val){
+					  walker.next = l1;
+					  l1 = l1.next;
+				  }else{
+					  walker.next = l2;
+					  l2 = l2.next;
+				  }
+				  walker = walker.next;
+			  }
+			  //there will be "left over" elements assigned to walker 
+			  walker.next = (l1 != null) ? l1 : l2;
+		  }
+		  
+		  
+		  return head;
+	        
+    }
+}
